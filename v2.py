@@ -246,5 +246,5 @@ for iter in range(max_iters): #number of steps is 100 for better results increcs
 #generating form the contex 
 contex = torch.zeros((1,1), dtype=torch.long, device=device)
 
-print(decode(m.generate(idx = contex, max_new_tokens=1000)[0].tolist()))
+print(decode(m.generate(idx = contex, max_new_tokens=1000).tolist()))
 
