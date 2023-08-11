@@ -3,6 +3,7 @@
 import re
 import torch
 import torch.nn as nn
+import bpe_tokenizer
 from torch.nn import functional as f
 
 #----------------------------------
@@ -26,19 +27,8 @@ with open("poems.txt", "r" ,encoding="utf-8") as file:
     text = file.read()
 
 #-----------------------------------
-#cleans the text from line breaks
-#pattern = r"\n\s*\n"
-#text = re.sub(pattern, "\n", text)
-
-#here are all the unique char that occur in the file
-chars = sorted(list(set(text)))
-vocab_size = len(chars)
-str_to_int = {ch:i for i, ch in enumerate(chars)}
-int_to_str = {i:ch for i, ch in enumerate(chars)}
-#encode string into int <=> decode string into the originl string intput
-encode = lambda s : [str_to_int[c] for c in s]
-decode = lambda str_out : ''.join([int_to_str[c] for c in str_out])
-
+#create a vob of chat
+ 1
 
 #---------------------------------------
 data = torch.tensor(encode(text), dtype=torch.long)
@@ -153,10 +143,10 @@ class Block(nn.Module):
         return(x)    
 #----------------------------------------
 
-#bigram model --class 
+#wordbased model --class 
 #output loss and logit and can generate 
 
-class BigramLanguageModel(nn.Module):
+class WordLanguageModel(nn.Module):
 
   def __init__(self):
     super().__init__()
@@ -208,8 +198,9 @@ class BigramLanguageModel(nn.Module):
 
     return idx
 
-model = BigramLanguageModel()
+model = WordLanguageModel()
 m = model.to(device)
+
 
 #-------------------------------------------
 #create an optimizer
