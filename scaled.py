@@ -152,9 +152,6 @@ class Block(nn.Module):
         x = x + self.sa(self.ln1(x))              #apply one head of self attention (B,T,C)
         x = x + self.ffw(self.ln2(x))              #(B,T,C)
         return(x)    
-
-
-
 #----------------------------------------
 
 #bigram model --class 
